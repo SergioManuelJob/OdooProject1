@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo noupdate="1">
+
+    <record id="task_type_sinIniciar" model="project.task.type">
+        <field name="sequence">10</field>
+        <field name="name">Sin Iniciar</field>
+    </record>
+
+    <record id="task_type_enProgreso" model="project.task.type">
+        <field name="sequence">20</field>
+        <field name="name">En Progreso</field>
+    </record>
+
+    
+    <record id="task_type_bloqueado" model="project.task.type">
+        <field name="sequence">30</field>
+        <field name="name">Bloqueado</field>
+    </record>
+
+    
+    <record id="task_type_terminado" model="project.task.type">
+        <field name="sequence">40</field>
+        <field name="name">Terminado</field>
+    </record>
+
+    
+    <record id="task_type_revisado" model="project.task.type">
+        <field name="sequence">50</field>
+        <field name="name">Revisado</field>
+    </record>
+
+</odoo>

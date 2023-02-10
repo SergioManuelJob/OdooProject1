@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="smss.business_tree">
+      <field name="name">smss.business.tree</field>
+      <field name="model">smss.business</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="email"/>
+          <field name="telephone"/>
+          <field name="direction"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="smss.business_form">
+      <field name="name">smss.business.form</field>
+      <field name="model">smss.business</field>
+      <field name="arch" type="xml">
+        <form>
+          <group id="group1" colspan="2" col="2">
+            <field name="name" required="1"/>
+            <field name="logo" widget="image" height="250px" width="250px"/>
+            <field name="description"/>
+            <field name="email" required="1"/>
+            <field name="telephone" required="1"/>
+            <field name="direction" required="1"/>
+            <field name="annualProfit" groups="smss.grupo_jefe"/>
+            <field name="annualCost" groups="smss.grupo_jefe"/>
+            <field name="profit" groups="smss.grupo_jefe"/>
+            <field name="projects">
+              <tree>
+                <field name="name"/>
+                <field name="description"/>
+              </tree>
+            </field>
+          </group>
+        </form>
+      </field>
+    </record>
+    
+    <!-- VIEW OF PROJECTS -->
+
+    <record id="project_project_inherit" model="ir.ui.view">
+      <field name="name">project.project.inherit</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project"></field>
+      <field name="arch" type="xml">
+        <field name="partner_id" position="after">
+          <field name="business"/>
+        </field>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="smss.business_action_window">
+      <field name="name">Business</field>
+      <field name="res_model">smss.business</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="SMSS" id="smss.menu_root" action="smss.business_action_window"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Business" id="smss.business_menu" parent="smss.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="Business" id="smss.business_menu_business" parent="smss.business_menu" action="smss.business_action_window" sequence="1"/>
+
+    <menuitem name="Tasks" id="smss_tasks" parent="smss.business_menu" action="project.action_view_all_task" sequence="2"/>
+
+
+  </data>
+</odoo>

@@ -1,0 +1,18 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_smss_business_grupo_jefe,smss.business.grupo_jefe,model_smss_business,grupo_jefe,1,1,1,1
+access_smss_business_grupo_analista,smss.business.grupo_analista,model_smss_business,grupo_analista,1,0,0,0
+access_smss_business_grupo_programador,smss.business.grupo_programador,model_smss_business,grupo_programador,1,0,0,0
+
+access_project_project,project.project,model_project_project,smss.group_programmer,1,0,0,0
+access_project_task_type_project_user,project.task.type.project.user,model_smss_business,smss.group_programmer,1,0,0,0
+access_project_task,project.task,model_project_task,smss.group_programmer,1,1,0,0
+access_partner_task_user,base.res.partner user,base.model_res_partner,smss.group_programmer,1,0,0,0
+access_resource_calendar,project.resource_calendar user,resource.model_resource_calendar,smss.group_programmer,1,0,0,0
+access_resource_calendar_attendance,project.resource_calendar_attendance user,resource.model_resource_calendar_attendance,smss.group_programmer,1,0,0,0
+access_resource_calendar_leaves_user,resource.calendar.leaves user,resource.model_resource_calendar_leaves,smss.group_programmer,1,1,1,1
+access_account_analytic_account_user,account.analytic.account,analytic.model_account_analytic_account,smss.group_programmer,1,0,0,0
+access_project_task_recurrence,project.task.recurrence,model_smss_business,smss.group_programmer,1,0,0,0
+
+
+

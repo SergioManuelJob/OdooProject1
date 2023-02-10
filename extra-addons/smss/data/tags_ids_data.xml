@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo noupdate="1">
+
+    <record id="tags_ids_onReview" model="project.tags">
+        <field name="name">On Review</field>
+    </record>
+
+    <record id="tags_ids_reviewed" model="project.tags">
+        <field name="name">Reviewed</field>
+    </record>
+
+</odoo>

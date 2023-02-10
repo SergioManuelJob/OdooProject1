@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <data>
+
+    <!-- GRUPO JEFE DE PROYECTOS -->
+    <record id="grupo_jefe" model="res.groups">
+      <field name="name">Jefe de proyectos</field>
+      <field name="comment">Perfil jefe de proyectos</field>
+    </record>
+
+    <!-- GRUPO ANALISTA -->
+    <record id="grupo_analista" model="res.groups">
+      <field name="name">Perfil analista</field>
+      <field name="comment">Perfil analista del módulo</field>
+    </record>
+
+    <!-- GRUPO PROGRAMADOR -->
+    <record id="grupo_programador" model="res.groups">
+      <field name="name">Perfil programador</field>
+      <field name="comment">Perfil programadores</field>
+    </record>
+
+    <!-- GRUPO PROGRAMADOR EN PROYECTOS -->
+    <record id="group_programmer" model="res.groups">
+      <field name="name">Perfil Programador</field>
+      <field name="comment">Perfil Programador</field>
+      <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+      <field name="category_id" ref="base.module_category_services_project"/>
+    </record>
+
+    <record id="base.user_admin" model="res.users">
+      <field name="groups_id" eval="[(4, ref('smss.grupo_jefe'))]"/>
+    </record>
+
+  </data>
+ </odoo> 

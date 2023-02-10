@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="tags_important" model="project.tags">
+        <field name="name">Importante</field>
+    </record>
+    <record id="tags_secondary" model="project.tags">
+        <field name="name">Secundario</field>
+    </record>
+</odoo>

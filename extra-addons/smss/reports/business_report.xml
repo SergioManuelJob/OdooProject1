@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.report" id="smss.smss_business_report">
+            <field name="name">Reporte Proyectos</field>
+            <field name="model">smss.business</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">smss.business_report_template</field>
+            <field name="report_file">smss.business_report_template</field>
+            <field name="binding_model_id" ref="smss.model_smss_business"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
