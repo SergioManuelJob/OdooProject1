@@ -15,12 +15,47 @@ class Tasks(http.Controller):
                 'user': rec.user_id.name,
                 'stage_id': rec.stage_id,
                 'stage': rec.stage_id.name,
-                'status': rec.kanban_state_label,
+                'kanban_state': rec.kanban_state_label,
                 'description': rec.description,
             }
             tasks.append(vals)
         return {'status': 200, 'response': tasks, 'message': 'Success'}
 
+    @http.route('/api/tasks/getAllProjects', type="json", auth="public", csrf=True, cors='*')
+    def listProjects(self):
+        tasks_rec = request.env['project.project'].sudo().search([])
+        tasks = []
+        for rec in tasks_rec:
+            vals = {
+                'id': rec.id,
+                'name': rec.name,
+            }
+            tasks.append(vals)
+        return {'status': 200, 'response': tasks, 'message': 'Success'}
+
+    @http.route('/api/tasks/getAllStages', type="json", auth="public", csrf=True, cors='*')
+    def listStages(self):
+        tasks_rec = request.env['project.task.type'].sudo().search([])
+        tasks = []
+        for rec in tasks_rec:
+            vals = {
+                'id': rec.id,
+                'name': rec.name,
+            }
+            tasks.append(vals)
+        return {'status': 200, 'response': tasks, 'message': 'Success'}
+
+    @http.route('/api/tasks/getAllUsers', type="json", auth="public", csrf=True, cors='*')
+    def listUsers(self):
+        tasks_rec = request.env['res.users'].sudo().search([])
+        tasks = []
+        for rec in tasks_rec:
+            vals = {
+                'id': rec.id,
+                'email': rec.login,
+            }
+            tasks.append(vals)
+        return {'status': 200, 'response': tasks, 'message': 'Success'}
 
     @http.route('/api/tasks/get/<int:rec_id>', type='json', auth='public', csrf=True, cors='*')
     def listOne(self, rec_id):

@@ -51,7 +51,7 @@ const Task = props => {
   const deleteTask = () => {
     TaskDataService.remove(currentTask.id)
       .then(response => {
-        navigate("/app/tasks");
+        navigate("/app");
       })
       .catch(e => {
         console.log(e);
@@ -143,23 +143,8 @@ const Task = props => {
                 name="description"
               />
             </div>
-
-
-            <div className="form-group">
-              <label htmlFor="stage">Stage</label>
-              <input
-                type="text"
-                className="form-control"
-                id="stage"
-                required
-                value={currentTask.stage}
-                onChange={handleInputChange}
-                name="stage"
-              />
-            </div>
-
           </form>
-
+          
           <button className="badge badge-danger mr-2" onClick={deleteTask}>
             Delete
           </button>

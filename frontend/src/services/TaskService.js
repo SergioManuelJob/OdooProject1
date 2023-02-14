@@ -26,6 +26,72 @@ const getAll = () => {
   return axios(config);
 };
 
+const getAllUsers = () => {
+  const session_id = getSessionId();
+
+  const data = JSON.stringify({
+    "jsonrpc": "2.0",
+    "params": {
+    }
+  });
+
+  const config = {
+    method: 'POST',
+    url: '/api/tasks/getAllUsers',
+    headers: {
+      'Content-Type': 'application/json',
+      "X-Openerp-Session-Id": session_id,
+    },
+    data: data
+  };
+
+  return axios(config);
+};
+
+const getAllStages = () => {
+  const session_id = getSessionId();
+
+  const data = JSON.stringify({
+    "jsonrpc": "2.0",
+    "params": {
+    }
+  });
+
+  const config = {
+    method: 'POST',
+    url: '/api/tasks/getAllStages',
+    headers: {
+      'Content-Type': 'application/json',
+      "X-Openerp-Session-Id": session_id,
+    },
+    data: data
+  };
+
+  return axios(config);
+};
+
+const getAllProjects = () => {
+  const session_id = getSessionId();
+
+  const data = JSON.stringify({
+    "jsonrpc": "2.0",
+    "params": {
+    }
+  });
+
+  const config = {
+    method: 'POST',
+    url: '/api/tasks/getAllProjects',
+    headers: {
+      'Content-Type': 'application/json',
+      "X-Openerp-Session-Id": session_id,
+    },
+    data: data
+  };
+
+  return axios(config);
+};
+
 const get = id => {
   const session_id = getSessionId();
 
@@ -81,8 +147,11 @@ const create = data => {
     "params": {
       "data": {
         "name": data.name,
-        "email": data.email,
-        "description": data.description
+        "user_id": data.user_id,
+        "project_id": data.project_id,
+        "stage_id": data.stage_id,
+        "description": data.description,
+        "kanban_state": data.kanban_state
       }
     }
   });
@@ -108,8 +177,11 @@ const update = (id, data) => {
     "params": {
       "data": {
         "name": data.name,
-        "email": data.email,
-        "description": data.description
+        "user_id": data.user_id,
+        "project_id": data.project_id,
+        "stage_id": data.stage_id,
+        "description": data.description,
+        "kanban_state": data.kanban_state
       }
     }
   });
@@ -203,6 +275,9 @@ const TaskService = {
   removeAll,
   findByTask,
   initSession,
+  getAllUsers,
+  getAllStages,
+  getAllProjects
 };
 
 export default TaskService;

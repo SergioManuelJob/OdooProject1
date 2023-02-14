@@ -98,7 +98,7 @@ const TasksList = () => {
               } key={index}>
                 <div className="card-body">
                   <h2 className="card-title">{Task.name}</h2>
-                  <p className="card-description">Assigned: {Task.user}</p>
+                  {/* <p className="card-description">Assigned: {Task.user}</p> */}
                 </div>
                 <button className="card-btn" onClick={() => setActiveTask(Task, index)}>View details</button>
               </div>
@@ -144,7 +144,7 @@ const TasksList = () => {
               <label>
                 <strong>Status:</strong>
               </label>{" "}
-              {currentTask.status}
+              {currentTask.kanban_state}
             </div>
             <div>
               <label>
