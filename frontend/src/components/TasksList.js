@@ -112,7 +112,7 @@ const TasksList = () => {
           Remove All
         </button> */}
       </div>
-      <div className="col-md-5">
+      <div className="details col-md-5">
         {currentTask ? (
           <div>
             <h4>Details</h4>
@@ -144,7 +144,7 @@ const TasksList = () => {
               <label>
                 <strong>Status:</strong>
               </label>{" "}
-              {currentTask.kanban_state}
+              {currentTask.kanban_state_label}
             </div>
             <div>
               <label>

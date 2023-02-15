@@ -23,17 +23,6 @@ const AddTask = () => {
     setTask({ ...task, [name]: value });
   };
 
-  const handleInputChangeOption = event => {
-    const { name, value } = event.target;
-    console.log(name + " - " + value);
-    setTask({ ...task, [name]: +value });
-  };
-  const handleInputChangeKanban = event => {
-    const { name, value } = event.target;
-    console.log(name + " - " + value);
-    setTask({ ...task, [name]: value });
-  };
-
   const getUsers = () => {
     TaskDataService.getAllUsers().then(response => {
       setUsers(response.data.result.response)
@@ -116,7 +105,7 @@ const AddTask = () => {
 
           <div className="form-group">
             <label htmlFor="user">User</label>
-            <select className="form-control" name="user_id" type="text" onChange={handleInputChangeOption} required>
+            <select className="form-control" name="user_id" type="text" onChange={handleInputChange} required>
               <option value="2" selected>...</option>
               {users &&
                 users.map((user, index) => (
@@ -128,7 +117,7 @@ const AddTask = () => {
 
           <div className="form-group">
             <label htmlFor="project">Project</label>
-            <select className="form-control" name="project_id" type="text" onChange={handleInputChangeOption} required>
+            <select className="form-control" name="project_id" type="text" onChange={handleInputChange} required>
               <option value="3" selected>...</option>
               {project &&
                 project.map((project, index) => (
@@ -140,7 +129,7 @@ const AddTask = () => {
 
           <div className="form-group">
             <label htmlFor="project">Stage</label>
-            <select className="form-control" name="stage_id" type="text" onChange={handleInputChangeOption} required>
+            <select className="form-control" name="stage_id" type="text" onChange={handleInputChange} required>
               <option value="11" selected>...</option>
               {stages &&
                 stages.map((stages, index) => (
@@ -153,11 +142,11 @@ const AddTask = () => {
 
           <div className="form-group">
             <label htmlFor="status">Status</label>
-            <select className="form-control" name="kanban_state" type="text" onChange={handleInputChangeKanban} required>
+            <select className="form-control" name="kanban_state" type="text" onChange={handleInputChange} required>
               <option value="normal" selected>...</option>
+              <option value="unassigned">Unassigned</option>
               <option value="normal">In Progress</option>
               <option value="done">Ready</option>
-              <option value="unassigned">Unassigned</option>
               <option value="delayed">Delayed</option>
               <option value="blocked" >Blocked</option>
             </select>

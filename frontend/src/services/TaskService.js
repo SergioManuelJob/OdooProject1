@@ -147,9 +147,9 @@ const create = data => {
     "params": {
       "data": {
         "name": data.name,
-        "user_id": data.user_id,
-        "project_id": data.project_id,
-        "stage_id": data.stage_id,
+        "user_id": +data.user_id,
+        "project_id": +data.project_id,
+        "stage_id": +data.stage_id,
         "description": data.description,
         "kanban_state": data.kanban_state
       }
@@ -177,9 +177,9 @@ const update = (id, data) => {
     "params": {
       "data": {
         "name": data.name,
-        "user_id": data.user_id,
-        "project_id": data.project_id,
-        "stage_id": data.stage_id,
+        "user_id": +data.user_id,
+        "project_id": +data.project_id,
+        "stage_id": +data.stage_id,
         "description": data.description,
         "kanban_state": data.kanban_state
       }

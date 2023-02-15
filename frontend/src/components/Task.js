@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import TaskDataService from "../services/TaskService";
 
@@ -9,39 +9,88 @@ const Task = props => {
   const initialTaskState = {
     id: null,
     name: "",
+    user_id: "",
     user: "",
+    project_id: "",
     project: "",
+    stage_id: "",
     stage: "",
-    status: "",
+    kanban_state: "",
+    kanban_state_label: "",
     description: ""
   };
+
+  const updatedTaskState = {
+    id: null,
+    name: "",
+    user_id: "",
+    project_id: "",
+    stage_id: "",
+    kanban_state: "",
+    description: ""
+  };
+
+  const timeOut = useRef(null);
+  const [users, setUsers] = useState([]);
+  const [stages, setStages] = useState([]);
+  const [project, setProject] = useState([]);
   const [currentTask, setCurrentTask] = useState(initialTaskState);
+  const [updatedTask, setUpdatedTask] = useState(updatedTaskState);
   const [message, setMessage] = useState("");
 
   const getTask = id => {
     TaskDataService.get(id)
       .then(response => {
-        setCurrentTask(response.data.result.response);
+        (response.data.result.response.description ? response.data.result.response.description
+          = response.data.result.response.description.split('>')[1].split('<')[0] : response.data.result.response.description = "")
+        setCurrentTask(response.data.result.response)
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-  useEffect(() => {
-    if (id)
-      getTask(id);
-  }, [id]);
+  const getUsers = () => {
+    TaskDataService.getAllUsers().then(response => {
+      setUsers(response.data.result.response)
+    })
+  }
+
+  const getProjects = () => {
+    TaskDataService.getAllProjects().then(response => {
+      setProject(response.data.result.response)
+    })
+  }
+
+  const getStages = () => {
+    TaskDataService.getAllStages().then(response => {
+      setStages(response.data.result.response)
+    })
+  }
 
   const handleInputChange = event => {
     const { name, value } = event.target;
     setCurrentTask({ ...currentTask, [name]: value });
   };
 
+  useEffect(() => {
+    getProjects();
+    getUsers();
+    getStages();
+    if (id)
+      getTask(id);
+  }, [id]);
+
   const updateTask = () => {
+    setUpdatedTask(currentTask)
+    console.log(currentTask);
     TaskDataService.update(currentTask.id, currentTask)
       .then(response => {
         setMessage("The business was updated successfully!");
+        clearTimeout(timeOut.current);
+        timeOut.current = setTimeout(() => {
+          navigate("/app")
+        }, 1000);
       })
       .catch(e => {
         console.log(e);
@@ -79,55 +128,51 @@ const Task = props => {
 
             <div className="form-group">
               <label htmlFor="user">User</label>
-              <input
-                type="text"
-                className="form-control"
-                id="user"
-                required
-                value={currentTask.user}
-                onChange={handleInputChange}
-                name="user"
-              />
+              <select className="form-control" name="user_id" type="text" onChange={handleInputChange} required>
+                <option value="2" selected>{currentTask.user}...</option>
+                {users &&
+                  users.map((user, index) => (
+                    <option value={user.id} key={index}>{user.email}</option>
+                  ))
+                }
+              </select>
             </div>
 
             <div className="form-group">
               <label htmlFor="project">Project</label>
-              <input
-                type="text"
-                className="form-control"
-                id="project"
-                required
-                value={currentTask.project}
-                onChange={handleInputChange}
-                name="project"
-              />
+              <select className="form-control" name="project_id" type="text" onChange={handleInputChange} required>
+                <option value={currentTask.project_id} selected>{currentTask.project}...</option>
+                {project &&
+                  project.map((project, index) => (
+                    <option value={project.id} key={index} >{project.name}</option>
+                  ))
+                }
+              </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="stage">Stage</label>
-              <input
-                type="text"
-                className="form-control"
-                id="stage"
-                required
-                value={currentTask.stage}
-                onChange={handleInputChange}
-                name="stage"
-              />
+              <label htmlFor="project">Stage</label>
+              <select className="form-control" name="stage_id" type="text" onChange={handleInputChange} required>
+                <option value={currentTask.stage_id} selected>{currentTask.stage}...</option>
+                {stages &&
+                  stages.map((stages, index) => (
+                    <option value={stages.id} key={index}>{stages.name}</option>
+                  ))
+                }
+              </select>
             </div>
 
 
             <div className="form-group">
               <label htmlFor="status">Status</label>
-              <input
-                type="text"
-                className="form-control"
-                id="status"
-                required
-                value={currentTask.status}
-                onChange={handleInputChange}
-                name="status"
-              />
+              <select className="form-control" name="kanban_state" type="text" onChange={handleInputChange} required>
+                <option value={currentTask.kanban_state} selected>{currentTask.kanban_state_label}...</option>
+                <option value="unassigned">Sin asignar</option>
+                <option value="normal">En progreso</option>
+                <option value="done">Preparado</option>
+                <option value="delayed">Atrasada</option>
+                <option value="blocked">Bloqueada</option>
+              </select>
             </div>
 
 
@@ -138,13 +183,13 @@ const Task = props => {
                 className="form-control"
                 id="description"
                 required
-                value={currentTask.description ? currentTask.description.split('>')[1].split('<')[0] : "No description added"}
+                value={currentTask.description}
                 onChange={handleInputChange}
                 name="description"
               />
             </div>
           </form>
-          
+
           <button className="badge badge-danger mr-2" onClick={deleteTask}>
             Delete
           </button>
@@ -161,7 +206,7 @@ const Task = props => {
       ) : (
         <div>
           <br />
-          <p>Please click on a Business...</p>
+          <p>Please click on a task...</p>
         </div>
       )}
     </div>

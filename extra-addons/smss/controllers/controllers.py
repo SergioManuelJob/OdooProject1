@@ -11,11 +11,14 @@ class Tasks(http.Controller):
             vals = {
                 'id': rec.id,
                 'name': rec.name,
+                'project_id': rec.project_id,
                 'project': rec.project_id.name,
+                'user_id': rec.user_id,
                 'user': rec.user_id.name,
                 'stage_id': rec.stage_id,
                 'stage': rec.stage_id.name,
-                'kanban_state': rec.kanban_state_label,
+                'kanban_state': rec.kanban_state,
+                'kanban_state_label': rec.kanban_state_label,
                 'description': rec.description,
             }
             tasks.append(vals)
@@ -64,11 +67,14 @@ class Tasks(http.Controller):
         val = {
             'id': rec.id,
             'name': rec.name,
+            'project_id': rec.project_id.id,
             'project': rec.project_id.name,
+            'user_id': rec.user_id.id,
             'user': rec.user_id.name,
-            'stage_id': rec.stage_id,
+            'stage_id': rec.stage_id.id,
             'stage': rec.stage_id.name,
-            'status': rec.kanban_state_label,
+            'kanban_state': rec.kanban_state,
+            'kanban_state_label': rec.kanban_state_label,
             'description': rec.description,
         }
         data = {'status': 200, 'response': val, 'message': 'Success'}
@@ -84,11 +90,14 @@ class Tasks(http.Controller):
             vals = {
                 'id': rec.id,
                 'name': rec.name,
+                'project_id': rec.project_id,
                 'project': rec.project_id.name,
+                'user_id': rec.user_id,
                 'user': rec.user_id.name,
                 'stage_id': rec.stage_id,
                 'stage': rec.stage_id.name,
-                'status': rec.kanban_state_label,
+                'kanban_state_id': rec.kanban_state,
+                'kanban_state': rec.kanban_state_label,
                 'description': rec.description,
             }
             tasks.append(vals)
