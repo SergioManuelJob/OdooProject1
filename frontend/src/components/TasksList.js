@@ -39,16 +39,6 @@ const TasksList = () => {
     setCurrentIndex(index);
   };
 
-  const removeAllTasks = () => {
-    TaskDataService.removeAll()
-      .then(response => {
-        refreshList();
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-
   const findByTask = () => {
 
     if (searchName === '') {
@@ -87,9 +77,8 @@ const TasksList = () => {
           </div>
         </div>
       </div>
-      <div className="list col-md-7">
+      <div className="list">
         <h4>Tasks List</h4>
-
         <ul className="list-tasks ">
           {Tasks &&
             Tasks.map((Task, index) => (
@@ -98,19 +87,11 @@ const TasksList = () => {
               } key={index}>
                 <div className="card-body">
                   <h2 className="card-title">{Task.name}</h2>
-                  {/* <p className="card-description">Assigned: {Task.user}</p> */}
                 </div>
                 <button className="card-btn" onClick={() => setActiveTask(Task, index)}>View details</button>
               </div>
             ))}
-        </ul>
-
-        {/* <button
-          className="m-3 btn btn-sm btn-danger"
-          onClick={removeAllTasks}
-        >
-          Remove All
-        </button> */}
+        </ul>  
       </div>
       <div className="details col-md-5">
         {currentTask ? (

@@ -20,22 +20,11 @@ const Task = props => {
     description: ""
   };
 
-  const updatedTaskState = {
-    id: null,
-    name: "",
-    user_id: "",
-    project_id: "",
-    stage_id: "",
-    kanban_state: "",
-    description: ""
-  };
-
   const timeOut = useRef(null);
   const [users, setUsers] = useState([]);
   const [stages, setStages] = useState([]);
   const [project, setProject] = useState([]);
   const [currentTask, setCurrentTask] = useState(initialTaskState);
-  const [updatedTask, setUpdatedTask] = useState(updatedTaskState);
   const [message, setMessage] = useState("");
 
   const getTask = id => {
@@ -82,8 +71,6 @@ const Task = props => {
   }, [id]);
 
   const updateTask = () => {
-    setUpdatedTask(currentTask)
-    console.log(currentTask);
     TaskDataService.update(currentTask.id, currentTask)
       .then(response => {
         setMessage("The business was updated successfully!");
@@ -162,7 +149,6 @@ const Task = props => {
               </select>
             </div>
 
-
             <div className="form-group">
               <label htmlFor="status">Status</label>
               <select className="form-control" name="kanban_state" type="text" onChange={handleInputChange} required>
@@ -174,7 +160,6 @@ const Task = props => {
                 <option value="blocked">Bloqueada</option>
               </select>
             </div>
-
 
             <div className="form-group">
               <label htmlFor="description">Description</label>

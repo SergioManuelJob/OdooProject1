@@ -36,6 +36,21 @@ class Tasks(http.Controller):
             tasks.append(vals)
         return {'status': 200, 'response': tasks, 'message': 'Success'}
 
+    @http.route('/api/tasks/getAllProjects/<int:rec_id>', type='json', auth='public', csrf=True, cors='*')
+    def listOneProject(self, rec_id):
+        model_to_get = request.env['project.project']
+        tasks_rec = model_to_get.browse(rec_id).sudo().ensure_one()
+        tasks = []
+        for rec in tasks_rec:
+            val = {
+                'name': rec.name,
+                'tasks_count': rec.task_count,
+                'description': rec.description
+            }
+            tasks.append(val)
+        data = {'status': 200, 'response': tasks, 'message': 'Success'}
+        return data
+
     @http.route('/api/tasks/getAllStages', type="json", auth="public", csrf=True, cors='*')
     def listStages(self):
         tasks_rec = request.env['project.task.type'].sudo().search([])

@@ -92,6 +92,28 @@ const getAllProjects = () => {
   return axios(config);
 };
 
+const getTasksFromProjects = id => {
+  const session_id = getSessionId();
+
+  const data = JSON.stringify({
+    "jsonrpc": "2.0",
+    "params": {
+    }
+  });
+
+  const config = {
+    method: 'POST',
+    url: `/api/tasks/getAllProjects/${id}`,
+    headers: {
+      'Content-Type': 'application/json',
+      "X-Openerp-Session-Id": session_id,
+    },
+    data: data
+  };
+
+  return axios(config);
+};
+
 const get = id => {
   const session_id = getSessionId();
 
@@ -277,7 +299,8 @@ const TaskService = {
   initSession,
   getAllUsers,
   getAllStages,
-  getAllProjects
+  getAllProjects,
+  getTasksFromProjects
 };
 
 export default TaskService;
